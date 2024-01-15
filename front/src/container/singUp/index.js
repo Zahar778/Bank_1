@@ -64,7 +64,7 @@ export default function SingUp() {
 
     submit = async () => {
       console.log(this.value);
-
+    
       try {
         const res = await fetch('http://localhost:4000/signup', {
           method: 'POST',
@@ -72,13 +72,13 @@ export default function SingUp() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: this.value[signupForm.FIELD_NAME.EMAIL],
-            password: this.value[signupForm.FIELD_NAME.PASSWORD],
+            email: this.value[this.FIELD_NAME.EMAIL],
+            password: this.value[this.FIELD_NAME.PASSWORD],
           }),
         });
-
+    
         const data = await res.json();
-
+    
         if (res.ok) {
           console.log('Успешный ответ:', data);
         } else {
@@ -86,7 +86,7 @@ export default function SingUp() {
         }
       } catch (error) {
         console.error('Ошибка запроса:', error);
-
+    
         if (error.response) {
           console.error('Статус ответа:', error.response.status);
           console.error('Тело ответа:', await error.response.json());
