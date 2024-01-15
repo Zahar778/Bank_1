@@ -1,44 +1,38 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const { User } = require('../class/user');
 
-const { User } = require('../class/user')
+router.use(express.json());
 
-User.create({
-    email: 'test@mail.com',
-    password: 123,
-})
 router.get('/signup', function (req, res) {
-    return res.render ('signup', {
-        name: 'signup',
+  return res.render('signup', {
+    name: 'signup',
+    title: 'Signup page',
+  });
+});
 
-        title: 'Signup page',
+router.post('/signup', function (req, res) {
+  const { email, password } = req.body;
 
-    })
-})
+  console.log(req.body); // Добавьте эту строку для отладки
 
-router.post('/signup', function(req,res) {
-    const {email, password} = req.body
+  if (!email || !password) {
+    return res.status(400).json({
+      message: 'Ошибка. Обязательные поля отсутствуют',
+    });
+  }
 
-    console.log(req.body)
+  try {
+    User.create({ email, password });
 
-    if(!email || !password ) {
-        return res.status(400).json({
-            massage: 'Помилка. Обов`язковi поля вiдсутнi'
-        })
-    }
-    try {
-        User.create({email, password})
+    return res.status(200).json({
+      message: 'Пользователь успешно зарегистрирован',
+    });
+  } catch (err) {
+    return res.status(400).json({
+      message: 'Ошибка создания пользователя',
+    });
+  }
+});
 
-
-        return res.status(200).json({
-            massage: 'Користувач успiшно зарэстрованний',
-        })
-    }catch(err) {
-        return res.status(400).json({
-            massage: 'Помилка створення користувача',
-        })
-    }
-   
-})
-
-module.exports = router
+module.exports = router;

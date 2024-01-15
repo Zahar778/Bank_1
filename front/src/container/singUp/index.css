@@ -50,7 +50,6 @@
     justify-content: space-between;
 }
 .field__input {
-    border: 1px solid #727179;
     display: flex;
     padding: 20px 16px;
     align-items: flex-start;
@@ -62,22 +61,32 @@
     
     
 }
-
+.field__input:hover {
+    border: 1px solid #727179;
+}
 .field__input:focus {
+    transition: border-color 0.3s;
     border: 1px solid #775CE5;
 }
 
 .field__icon {
     cursor: pointer;
-    opacity: 0.7s;
+    opacity: 0.7;
     display: block;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     background-image: url(../../../public/svg/password-hide.svg);
     background-size: cover;
-    background-image: url(../../../public/svg/password-show.svg);
-    margin-left: -40px;
+    margin-left: -43px;
   }
+  
+  .field__icon.show {
+    height: 20px;
+    width: 20px;
+    background-image: url(../../../public/svg/password-show.svg);
+  }
+    
+ 
   .icon {
     display: flex;
     align-items: center;
@@ -108,3 +117,45 @@
     margin-top: 20px;
     margin-left: 20px;
 }
+
+.alert {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 7px 45px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+  
+.alert--success {
+      border-color: #05fc1a9d;
+      color: #05fc1a9d;
+    }
+  
+    .alert--error {
+      font-size: 15px;
+      color: rgb(255, 0, 0);
+      display: contents;
+    }
+  
+    .alert--progress {
+      border-color: #1100ffc9;
+      color: #1100ffc9;
+    }
+  
+    .alert--disabled {
+      display: none;
+    }
+    .alert_flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .icon_warning {
+      background-image: url("../../../public/svg/warning.svg");
+      background-repeat: no-repeat;
+        height: 22px;
+        width: 22px;
+        margin-left: 9px;
+        padding-left: 40px;
+    }
+
