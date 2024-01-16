@@ -5,8 +5,7 @@
     border-radius: 12px;
     font-size: 16px;
     background-color:  #775CE5;
-    width: 353px;
-    padding: 20px 140px;
+    padding: 20px 120px;
     color: wheat;
     gap: 12px;
     margin-bottom: 12px;
@@ -28,8 +27,7 @@
     font-size: 16px;
     background-color: transparent;
     border: 1px solid #775CE5;
-    width: 353px;
-    padding: 20px 140px;
+    padding: 20px 120px;
     color: #775CE5;
     cursor: pointer;
     transition: opacity 0.7s;

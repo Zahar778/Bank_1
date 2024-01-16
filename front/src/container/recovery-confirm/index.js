@@ -3,27 +3,27 @@ import './index.css';
 import BackButton from '../../component/button_back';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../component/button';
-import { Form, REG_EXP_EMAIL, REG_EXP_PASSWORD } from '../../script/form';
-import { saveSession } from '../../script/session';
+import { Form, REG_EXP_PASSWORD } from '../../script/form';
 
-export default function SignUp() {
+export default function RecoveryConfirm() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
-  class SignUpForm extends Form {
+  const recovery = () => {
+    navigate('/recovery')
+  }
+  class RecoveryForm extends Form {
     constructor() {
       super();
 
       this.FIELD_NAME = {
-        EMAIL: 'email',
+        CODE: 'code',
         PASSWORD: 'password',
       };
 
       this.FIELD_ERROR = {
         IS_EMPTY: 'Введіть значення в поле ',
         IS_BIG: 'Дуже довге значення, приберіть зайве ',
-        EMAIL: 'Введіть коректне значення e-mail адреси ',
         PASSWORD:
           'Пароль повинен складатися з не менше ніж 8 символів включаючи хоча б одну цифру, малу та велику літеру ',
       };
@@ -39,12 +39,6 @@ export default function SignUp() {
         return this.FIELD_ERROR.IS_BIG;
       }
 
-      if (name === this.FIELD_NAME.EMAIL) {
-        if (!REG_EXP_EMAIL.test(String(value))) {
-          return this.FIELD_ERROR.EMAIL;
-        }
-      }
-
       if (name === this.FIELD_NAME.PASSWORD) {
         if (!REG_EXP_PASSWORD.test(String(value))) {
           return this.FIELD_ERROR.PASSWORD;
@@ -58,42 +52,33 @@ export default function SignUp() {
     };
 
     submit = async () => {
-      if (this.disabled === true) {
-        this.validateAll()
-      } else {
-        console.log(this.value)
-       
+      console.log(this.value);
+
       try {
-        const res = await fetch('http://localhost:4000/signup', {
+        const res = await fetch('http://localhost:4000/recovery-confirm', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            email: this.value[this.FIELD_NAME.EMAIL],
-            password: this.value[this.FIELD_NAME.PASSWORD],
-          }),
+          body: convertData(),
         });
 
         if (res.status === 200) {
           const data = await res.json();
-          console.log('Успешный ответ:', data.message);
-          saveSession(data.session)
-          return AuthRoute();
+          console.log('Успешный ответ:', data);
+          setErrors({ [this.FIELD_NAME.CODE]: data.message });
+          return recovery()
         } else if (res.status === 400) {
           const data = await res.json();
-          console.error('Ошибка ответа:', data.message);
+          console.error('Ошибка ответа:', data);
           setErrors({ [this.FIELD_NAME.PASSWORD]: data.message });
         } else {
           console.error('Ошибка ответа:', res.statusText);
-          setErrors({ [this.FIELD_NAME.PASSWORD]: 'Ошибка сервера' });
         }
       } catch (error) {
         console.error('Ошибка запроса:', error);
-        setErrors({ [this.FIELD_NAME.PASSWORD]: 'Ошибка запроса' });
       }
     };
-  } 
 
     validateAll = () => {
       Object.values(this.FIELD_NAME).forEach((name) => {
@@ -106,29 +91,14 @@ export default function SignUp() {
     };
   }
 
-  const signUpForm = new SignUpForm();
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const SignUpConfirm = () => {
-    navigate('/signup-confirm');
-  };
-  const AuthRoute = () => {
-    navigate('/AuthRoute');
-  };
-
-  const SingIn = () => {
-    navigate('/login');
-  };
+  const recoveryForm = new RecoveryForm();
 
   const config = async () => {
     // Proceed with validation
-    signUpForm.validateAll();
+    recoveryForm.validateAll();
 
     // Check for validation errors
-    const formErrors = signUpForm.getErrors();
+    const formErrors = recoveryForm.getErrors();
 
     // If there are errors, update the state and prevent form submission
     if (formErrors && Object.keys(formErrors).length > 0) {
@@ -136,12 +106,19 @@ export default function SignUp() {
     } else {
       try {
         // Only submit the form to the server if validation passes
-        await signUpForm.submit();
+        await recoveryForm.submit();
       } catch (error) {
         console.error('Ошибка при отправке формы:', error);
         // Handle errors during form submission
       }
     }
+  };
+
+  const convertData = () => {
+    return JSON.stringify({
+      [recoveryForm.FIELD_NAME.CODE]: Number(recoveryForm.value[recoveryForm.FIELD_NAME.CODE]),
+      [recoveryForm.FIELD_NAME.PASSWORD]: recoveryForm.value[recoveryForm.FIELD_NAME.PASSWORD],
+    });
   };
 
   return (
@@ -150,22 +127,22 @@ export default function SignUp() {
       <div>
         <div className="title_singUp">
           <div className="title_culm">
-            <h1 className="h1">Sign Up</h1>
-            <p className="deckripton">Choose a registration method</p>
+            <h1 className="h1">Recover password</h1>
+            <p className="deckripton">Write the code you received</p>
           </div>
         </div>
         <form className="page__section">
           <div className="form">
             <div className="form__item">
               <div className="field">
-                <div className="field__title"> Email</div>
+                <div className="field__title"> Code</div>
                 <label className="field__label"></label>
                 <input
-                  onInput={(e) => signUpForm.change(e.target.name, e.target.value)}
-                  className={`field__input validation ${errors[signUpForm.FIELD_NAME.EMAIL] ? 'validation--error' : ''}`}
-                  name={signUpForm.FIELD_NAME.EMAIL}
-                  placeholder="Ваш e-mail"
-                  type="email"
+                  onInput={(e) => recoveryForm.change(e.target.name, e.target.value)}
+                  className={`field__input validation ${errors[recoveryForm.FIELD_NAME.CODE] ? 'validation--error' : ''}`}
+                  name={recoveryForm.FIELD_NAME.CODE}
+                  placeholder="Code"
+                  type="number"
                 />
               </div>
             </div>
@@ -177,43 +154,32 @@ export default function SignUp() {
                 <div className="icon">
                   <label className="field__label"></label>
                   <input
-                    onInput={(e) => signUpForm.change(e.target.name, e.target.value)}
-                    className={`field__input validation ${errors[signUpForm.FIELD_NAME.PASSWORD] ? 'validation--error' : ''}`}
-                    name={signUpForm.FIELD_NAME.PASSWORD}
-                    placeholder="Password"
+                    onInput={(e) => recoveryForm.change(e.target.name, e.target.value)}
+                    className={`field__input validation ${errors[recoveryForm.FIELD_NAME.PASSWORD] ? 'validation--error' : ''}`}
+                    name={recoveryForm.FIELD_NAME.PASSWORD}
+                    placeholder="New password"
                     type={showPassword ? 'text' : 'password'}
                   />
-
-                  <span
-                    onClick={toggleShowPassword}
-                    className={`field__icon ${showPassword ? 'show' : ''}`}
-                  ></span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="p">
-            <p className="description">Already have an account? </p>
-            <p className="link" onClick={SingIn}>
-              Sign In
-            </p>
-          </div>
         </form>
         <div className="suuces_button ">
-          <Button text={'Continue'} type={Button} onClick={config} />
+          <Button text={'Restore password'} type={Button} onClick={config} />
         </div>
         <div className="alert_flex">
           <span
-            className={`form__error ${errors[signUpForm.FIELD_NAME.PASSWORD] ? 'form__error--active' : 'icon_warning'}`}
-            name={signUpForm.FIELD_NAME.PASSWORD}
+            className={`form__error ${errors[recoveryForm.FIELD_NAME.PASSWORD] ? 'form__error--active' : 'icon_warning'}`}
+            name={recoveryForm.FIELD_NAME.PASSWORD}
           >
-            {errors[signUpForm.FIELD_NAME.PASSWORD]}
+            {errors[recoveryForm.FIELD_NAME.PASSWORD]}
           </span>
           <span
-            className={`form__error ${errors[signUpForm.FIELD_NAME.EMAIL] ? 'form__error--active' : 'icon_warning'}`}
-            name={signUpForm.FIELD_NAME.EMAIL}
+            className={`form__error ${errors[recoveryForm.FIELD_NAME.CODE] ? 'form__error--active' : 'icon_warning'}`}
+            name={recoveryForm.FIELD_NAME.CODE}
           >
-            {errors[signUpForm.FIELD_NAME.EMAIL]}
+            {errors[recoveryForm.FIELD_NAME.CODE]}
           </span>
         </div>
       </div>
