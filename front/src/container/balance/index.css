@@ -1,48 +1,70 @@
-.header {
-    position: relative;
-}
-.background_img {
+.wellcomePage {
+    margin-top: 50px;
+    /* background-color: rgb(131, 134, 138); */
     width: 393px;
-    height: 583px;
-    border-radius: 25px ;
-    position: absolute;
-    z-index: 1;
-    background: linear-gradient(180deg, #5431DF 0%, rgba(120, 92, 229, 0.00) 100%);
-}
-.bitcoin_img {
-    position: relative;
-    z-index: 2;
-    height: 655px;
-    width: 349px;
-    top: 94px;
-    left: 45px;
+    height: 852px;
+    border-radius: 24px;
 }
 
-.title { 
-    position: absolute;
-    top: 20%;
-    left: 30%;
-    z-index: 3;
-}
-.title_deckription {
-    text-align: center;
-    font-family: Jost;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 100%;
-    color: #fff;
-}
-.title_header {
-    text-align: center;
-    font-family: Jost;
-    font-size: 42px;
-    font-weight: 600;
-    line-height: 100%;
-    color: #fff;
-    padding-bottom: 16px;
-}
-.button_title {
+.header_balance {
     display: flex;
     flex-direction: column;
+    width: 393px;
+    height: 201px;
+    background: linear-gradient(270deg, rgba(73, 44, 187, 1) 0%, rgb(104, 226, 222, 1) 100%);
+}
+.header_balance_gradient {
+    display: flex;
+    flex-direction: column;
+    width: 393px;
+    height: 201px;
+    flex-shrink: 0;
+    background: url("../../../public/png/header_fon.png");
+    mix-blend-mode: overlay;
+    border-radius: 25px;
+}
+.header_icon {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 85px;
+    padding: 20px 16px 20px
+    
+}
+.balance {
+    display:flex ;
+    justify-content: center;
+}
+.settings {
+    background-image: url('../../../public/svg/settings.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.settings:hover {
+    opacity: 0.5;
+}
+.bell {
+    background-image: url('../../../public/svg/bell.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.bell:hover {
+    opacity: 0.5;
+}
+
+.header_title {
+    display: flex;
     align-items: center;
+    color: var(--White-2, #F3F5FF);
+    text-align: center;
+    font-family: Jost;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 16px */
 }

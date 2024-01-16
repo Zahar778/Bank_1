@@ -14,6 +14,9 @@ export default function SignupConfirm() {
   const AuthRoute = () => {
     navigate('/AuthRoute');
   };
+  const balance = () => {
+    navigate('/balance')
+  }
 
   class SignupConfirmForm extends Form {
     constructor() {
@@ -59,7 +62,7 @@ export default function SignupConfirm() {
 
           if (res.ok) {
             saveSession(data.session);
-            AuthRoute();
+            balance()
           } else {
             // Handle error case here
           }

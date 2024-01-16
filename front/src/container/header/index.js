@@ -20,8 +20,10 @@ export default function Headers({ text, type }) {
           <h1 className="title_header">Hello!</h1>
           <h2 className="title_deckription">Welcome to bank app</h2>
         </div>
-        <img src="./svg/header_background.svg" className="background_img" alt="background"></img>
-        <img src="./svg/header_background_two.svg" className="bitcoin_img" alt="bitcoin"></img>
+        
+        <img  className="background_imggg"></img>
+        <img  className="background_gradient" ></img>
+        <img src="./svg/header_background_two.svg" className="bitcoin_img" ></img>
       </div>
       <div className="button_title">
         

@@ -4,22 +4,17 @@ import Button from '../../component/button';
 import "./index.css";
 
 export default function Balance() {
-
+let balance = 30000
   return (
-    <header className="header">
-      <div>
-        <div className="title">
-          <h1 className="title_header">Hello!</h1>
-          <h2 className="title_deckription">Welcome to balance</h2>
-        </div>
-        <img src="./svg/header_background.svg" className="background_img" alt="background"></img>
-        <img src="./svg/header_background_two.svg" className="bitcoin_img" alt="bitcoin"></img>
-      </div>
-      <div className="button_title">
-        
-        <Button text={"Sign Up"}  />
-        <Button text={"Sign In"} type={'transparent'}  />
-      </div>
+    <header className="header_balance  wellcomePage">
+      <div className='header_balance_gradient'>
+     <div className='header_icon'>
+      <div className='settings' onClick={'привет'} ></div>
+      <div className='header_title'>Main wallet</div>
+      <div className='bell' onClick={'привет'} ></div>
+     </div>
+     <div className='balance'>{balance}</div>
+     </div>
     </header>
   );
 }
