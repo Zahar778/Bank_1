@@ -4,7 +4,7 @@ class Confirm {
   constructor(data) {
     this.code = Confirm.generateCode()
     this.data = data
-  }
+  } 
 
   static generateCode = () =>
     Math.floor(Math.random() * 9000) + 1000

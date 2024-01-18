@@ -1,0 +1,121 @@
+.balance_body {
+    margin-top: 50px;
+    /* background-color: rgb(131, 134, 138); */
+    width: 393px;
+    height: 852px;
+    border-radius: 24px;
+}
+.Header_recive {
+    display: flex;
+    flex-direction: column;
+}
+.title_recive {
+    margin-top: -22px;
+    color: var(--Black, #1D1D1F);
+    text-align: center;
+    font-family: Jost;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 20px */
+}
+
+.field__input_recive {
+    display: flex;
+    padding: 20px 16px;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    border-radius: 20px;
+    width: 325px;
+    
+}
+.field__input_recive:hover {
+    border: 1px solid #727179;
+}
+.field__input_recive:focus {
+    transition: border-color 0.3s;
+    border: 1px solid #775CE5;
+}
+.form_display_gap {
+    display: flex;
+    justify-content: space-around;
+    gap: 84px;
+}
+.flex_form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.payment_system {
+    margin-top: 40px;
+}
+
+.field__title_mini {
+    font-size: 14px;
+    margin-bottom: 25px;
+    color: #1D1D1F;
+    margin-left: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form_display {
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.form_display:hover {
+    opacity: 0.9;
+}
+.bunk_option {
+    background-image: url('../../../public/svg/bank.svg');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.bunk_option_two {
+    background-image: url('../../../public/svg/bank_two.svg');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 100%;
+    margin-top: 6px;
+}
+.logo_form_two {
+    background-image: url('./../../../public/svg/logo_bank_two.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    margin-top: 6px;
+}
+
+.name_replenishment {
+    color: var(--Black, #1D1D1F);
+    text-align: center;
+    font-family: Jost;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 1000;
+    line-height: 100%; /* 16px */
+}
+.form_display_gap_two {
+    display: flex;
+    justify-content: space-around;
+    gap: 61px;
+}
+
+.form_display_gap {
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.form_display_gap:hover {
+    opacity: 0.7;
+}
+.form_display_gap_two {
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.form_display_gap_two:hover {
+    opacity: 0.7;
+}
