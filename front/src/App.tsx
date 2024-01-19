@@ -10,6 +10,7 @@ import BalancePage from './container/balance';
 import LoginPage from './container/login';
 import RecivePage from './container/recive';
 import SettingsPage from './container/settings';
+import ReceiptPage from './container/receipt';
 
 
 function App() {
@@ -50,7 +51,10 @@ function App() {
               <Routes>
         <Route path="/settings" element={<SettingsPage />} />
         </Routes>
-        
+        <Routes>
+        <Route path="/receipt/:id" element={<ReceiptPage />} />
+        </Routes>
+
       </div>
     </Router>
   );

@@ -69,6 +69,9 @@ export default function Balance() {
   const settings = () => {
     navigate('/settings');
   };
+  const receipt = (id) => {
+    navigate(`/receipt/${id}`);
+  };
 
   return (
     <div className='balance_body'>
@@ -104,19 +107,20 @@ export default function Balance() {
           ) : (
             data && data.list.map((item) => (
               <Fragment key={item.id}>
-    <form className='replenishment'>
-      <div className='form_display'>
-        <div className='logo_form'></div>
-        <div className='date_replenis'>
-        <div className='name_replenishment'> {item.username}</div>
-        <div className='date'>{item.date.split(' ')[1]} • Receipt </div>
-        </div>
-        <div className='sum'>+{item.text}$</div>
-      </div>
-    </form>
-    </Fragment>
-      ))
-    )}
+                <form className='replenishment'>
+                  <div className='form_display' onClick={() => receipt(item.id)}>
+                    <div className={item.username === 'Coinbase' ? 'logo_form_two' : 'logo_form'}></div>
+                    
+                    <div className='date_replenis'>
+                      <div className='name_replenishment'>{item.username}</div>
+                      <div className='date'>{item.date.split(' ')[1]} • Receipt </div>
+                    </div>
+                    <div className='sum'>+{item.text}$</div>
+                  </div>
+                </form>
+              </Fragment>
+            ))
+            )}
         </div>
   );
 }

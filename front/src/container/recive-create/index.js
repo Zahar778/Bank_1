@@ -14,6 +14,9 @@ export default function Recive_create({onCreate, username, placeholder, button, 
   const handeSubmit = (value) => {
       return sendData ({value});
     };
+    const handeSubmit_two = (value) => {
+      return sendData_two ({value});
+    };
     const sendData = async (dataToSend) => {
       setStatus(LOAD_STATUS.PROGRESS);
 
@@ -41,10 +44,43 @@ export default function Recive_create({onCreate, username, placeholder, button, 
           setStatus(LOAD_STATUS.ERROR);
       }
   };
+  const sendData_two = async (dataToSend) => {
+    setStatus(LOAD_STATUS.PROGRESS);
+
+    try{
+        const res = await fetch("http://localhost:4000/post-create_two", {
+            method: "POST",
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            body: convertData_two(dataToSend),
+        });
+
+        const data = await res.json();
+
+        if(res.ok) {
+            setStatus(null);
+            
+            if(onCreate) onCreate();
+        }else {
+            setMessage(data.messaeg);
+            setStatus(LOAD_STATUS.ERROR)
+        }
+    } catch(error) {
+        setMessage(error.messaeg);
+        setStatus(LOAD_STATUS.ERROR);
+    }
+};
   const convertData = ({value}) =>
   JSON.stringify({
       text: value,
       username: "Stripe",
+      postId: id,
+  });
+  const convertData_two = ({value}) =>
+  JSON.stringify({
+      text: value,
+      username: "Coinbase",
       postId: id,
   });
 
@@ -58,10 +94,13 @@ export default function Recive_create({onCreate, username, placeholder, button, 
                   placeholder={placeholder}
                   button={button}
                   onSubmit={handeSubmit}
+                  onSubmit_two={handeSubmit_two}
+
                 />
               </div>
             </div>
           </div>
+
    </form>
 
 );

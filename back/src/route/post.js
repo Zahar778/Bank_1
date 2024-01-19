@@ -68,40 +68,34 @@ router.get('/post-list', function(req, res) {
         })
     }
 })
-
-router.get('/post-item', function(req, res) {
+router.post('/post-create_two', function(req, res) {
     try {
-        const { id } = req.query
-
-        if (!id) {
+        const { username, text, postId } = req.body
+        if (!username || !text) {
             return res.status(400).json({
-                message: "Потрiбно передти ID поста",
+                message: 'Потрібно передати всі дані для створення поста',
             })
         }
-        const post = Post.getById(Number(id))
-
-        if (!post) {
-            return res.status(400).json({
-                message: " Пост з таким ID не існує",
-            })
+        let post = null;
+        if (postId) {
+            post = Post.getById(Number(postId));
+            if (!post) {
+                return res.status(400).json({
+                    message: 'Пост з таким ID не існує',
+                })
+            }
         }
+        const newPost = Post.create(username, text, post);
         return res.status(200).json({
             post: {
-                id: post.id,
-                text: post.text,
-                username: post.username,
-                date: post.date,
-
-                reply: post.reply.map((reply) => ({
-                    id: reply.id,
-                    text: reply.text,
-                    username: reply.username,
-                    date: reply.date,
-                })),
+                id: newPost.id,
+                text: newPost.text,
+                username: newPost.username,
+                date: newPost.date,
             },
         })
     } catch (e) {
-        console.error("Error in /post-item:", e);
+        console.error("Error in /post-create:", e);
         return res.status(400).json({
             message: e.message,
         })
