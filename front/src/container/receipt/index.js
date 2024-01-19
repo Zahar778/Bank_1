@@ -64,6 +64,7 @@ export default function Receipt() {
     }
   }, [status]);
 
+  
   const recive = () => {
     navigate('/recive');
   };
@@ -80,7 +81,6 @@ export default function Receipt() {
    <div className='balance_body'>
 <BackButton />
     <div className='Header_recive'>
-    
     <div className='title_recive_flex'>
    <div className='title_recive'>Transaction</div>
    </div>
@@ -97,7 +97,7 @@ export default function Receipt() {
                 </div>
                 <div className='init'>
                 <div>Address</div>
-                <div>zax.kobra@gmail.com</div>
+                <div>user123@mail.com</div>
                 </div>
                 <div className='init'>
                 <div>Type</div>

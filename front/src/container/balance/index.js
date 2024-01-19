@@ -73,6 +73,10 @@ export default function Balance() {
     navigate(`/receipt/${id}`);
   };
 
+  const send = () => {
+    navigate('/send');
+  };
+
   return (
     <div className='balance_body'>
    
@@ -84,7 +88,7 @@ export default function Balance() {
      <div className='header_icon'>
       <div className='settings' onClick={settings} ></div>
       <div className='header_title'>Main wallet</div>
-      <div className='bell' onClick={'привет'} ></div>
+      <div className='bell' onClick={"привет"} ></div>
      </div>
      <div className='balance'>$ {balance}</div>
      </div>
@@ -96,7 +100,7 @@ export default function Balance() {
       </div>
      </div>
      <div className='Button_Send'>
-     <div className=' receive_redius'>
+     <div className=' receive_redius' onClick={send}>
         <div className='icon_people-upload'></div>
       </div>
      </div>

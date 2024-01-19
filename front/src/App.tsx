@@ -11,6 +11,7 @@ import LoginPage from './container/login';
 import RecivePage from './container/recive';
 import SettingsPage from './container/settings';
 import ReceiptPage from './container/receipt';
+import SendPage from './container/send';
 
 
 function App() {
@@ -54,7 +55,9 @@ function App() {
         <Routes>
         <Route path="/receipt/:id" element={<ReceiptPage />} />
         </Routes>
-
+        <Routes>
+        <Route path="/send" element={<SendPage />} />
+        </Routes>
       </div>
     </Router>
   );
