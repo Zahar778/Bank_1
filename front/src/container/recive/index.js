@@ -49,9 +49,9 @@ if(status === null) {
 
   return (
    <div className='balance_body'>
-
+<BackButton />
     <div className='Header_recive'>
-    <BackButton />
+    
     <div className='title_recive_flex'>
    <div className='title_recive'>Receive</div>
    </div>

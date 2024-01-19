@@ -44,7 +44,7 @@ export default function Recive_create({onCreate, username, placeholder, button, 
   const convertData = ({value}) =>
   JSON.stringify({
       text: value,
-      username: "username",
+      username: "Stripe",
       postId: id,
   });
 

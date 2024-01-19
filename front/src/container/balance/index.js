@@ -111,7 +111,7 @@ export default function Balance() {
         <div className='name_replenishment'> {item.username}</div>
         <div className='date'>{item.date.split(' ')[1]} • Receipt </div>
         </div>
-        <div className='sum'>{item.text}$</div>
+        <div className='sum'>+{item.text}$</div>
       </div>
     </form>
     </Fragment>
