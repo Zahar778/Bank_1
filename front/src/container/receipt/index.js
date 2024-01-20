@@ -88,8 +88,10 @@ export default function Receipt() {
               <Fragment>
               {item.id === parseInt(receiptId) && (
                 <div>
-                <div className='sum_receipt'>
-                  +{item.text}$
+                <div className={item.username.endsWith('.com') ? "send_receipt" : "sum_receipt"}>
+                {item.username.endsWith('.com') ? '-' : '+'}
+                
+                {item.text}$
                 </div>
                 <div className='init'>
                 <div>Date</div>
@@ -97,11 +99,11 @@ export default function Receipt() {
                 </div>
                 <div className='init'>
                 <div>Address</div>
-                <div>user123@mail.com</div>
+                <div>{item.username}</div>
                 </div>
                 <div className='init'>
                 <div>Type</div>
-                <div>Recive</div>
+                <div>{item.username.endsWith('.com') ? 'Sending' : 'Receipt'}</div>
                 </div>
                 
                 </div>

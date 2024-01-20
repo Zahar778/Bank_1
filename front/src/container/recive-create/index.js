@@ -7,7 +7,7 @@ import FieldForm from '../../component/field-form';
 import { Alert, Loader, LOAD_STATUS } from "../../component/load";
 import { useState } from 'react';
 
-export default function Recive_create({onCreate, username, placeholder, button, id}) {
+export default function Recive_create({onCreate, email, placeholder, button, id}) {
   const [status, setStatus] = useState(null);
   const [messaeg, setMessage] = useState('');  
   
@@ -17,6 +17,10 @@ export default function Recive_create({onCreate, username, placeholder, button, 
     const handeSubmit_two = (value) => {
       return sendData_two ({value});
     };
+    // const handleSend = (value) => {
+    //   return sendDataSend ({value});
+    // };
+
     const sendData = async (dataToSend) => {
       setStatus(LOAD_STATUS.PROGRESS);
 
@@ -71,6 +75,33 @@ export default function Recive_create({onCreate, username, placeholder, button, 
         setStatus(LOAD_STATUS.ERROR);
     }
 };
+// const sendDataSend = async (dataToSend) => {
+//   setStatus(LOAD_STATUS.PROGRESS);
+
+//   try{
+//       const res = await fetch("http://localhost:4000/post-send", {
+//           method: "POST",
+//           headers : {
+//               "Content-Type" : "application/json",
+//           },
+//           body: convertData_two(dataToSend),
+//       });
+
+//       const data = await res.json();
+
+//       if(res.ok) {
+//           setStatus(null);
+          
+//           if(onCreate) onCreate();
+//       }else {
+//           setMessage(data.messaeg);
+//           setStatus(LOAD_STATUS.ERROR)
+//       }
+//   } catch(error) {
+//       setMessage(error.messaeg);
+//       setStatus(LOAD_STATUS.ERROR);
+//   }
+// };
   const convertData = ({value}) =>
   JSON.stringify({
       text: value,
@@ -83,6 +114,12 @@ export default function Recive_create({onCreate, username, placeholder, button, 
       username: "Coinbase",
       postId: id,
   });
+  // const convertSend = ({value}) =>
+  // JSON.stringify({
+  //     sum: value,
+  //     email: email,
+  //     postId: id,
+  // });
 
   return (
 
@@ -95,6 +132,7 @@ export default function Recive_create({onCreate, username, placeholder, button, 
                   button={button}
                   onSubmit={handeSubmit}
                   onSubmit_two={handeSubmit_two}
+                  // onSubmit_send={handleSend}
 
                 />
               </div>

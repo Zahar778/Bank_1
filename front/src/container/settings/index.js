@@ -245,6 +245,7 @@ export default function Settings() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          email: this.value[this.FIELD_NAME.EMAIL],
           newPassword: this.value[this.FIELD_NAME.NEWPASSWORD],
           password: this.value[this.FIELD_NAME.PASSWORD],
         }),
@@ -269,7 +270,7 @@ export default function Settings() {
     }
   };
   validateAll_two = () => {
-      Object.values(this.FIELD_NAME.PASSWORD || this.FIELD_NAME.NEWPASSWORD).forEach((name) => {
+      Object.values(this.value[this.FIELD_NAME.PASSWORD] || this.value[this.FIELD_NAME.NEWPASSWORD]).forEach((name) => {
         const error = this.validate(name, this.value[name]);
 
         if (error) {
@@ -419,8 +420,24 @@ const config_two = async () => {
             <div className="form__item">
               <div className="field">
                 <div className="field__title_setings"> Change password</div>
-                <div className="field__title field__title_we"> Old Password</div>
+                <div className="field__title"> Email</div>
+                <label className="field__label"></label>
+                <input
+                  onInput={(e) => settingsForm.change(e.target.name, e.target.value)}
+                  className={`field__input validation ${errors[settingsForm.FIELD_NAME.EMAIL] ? 'validation--error' : ''}`}
+                  name={settingsForm.FIELD_NAME.EMAIL}
+                  placeholder="Ваш e-mail"
+                  type="email"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="form">
+            <div className="form__item">
+              <div className="field">
+                <div className="field__title field__titel_password"> Password</div>
                 <div className="icon">
+                  <label className="field__label"></label>
                   <input
                     onInput={(e) => settingsForm.change(e.target.name, e.target.value)}
                     className={`field__input validation ${errors[settingsForm.FIELD_NAME.PASSWORD] ? 'validation--error' : ''}`}
@@ -440,13 +457,14 @@ const config_two = async () => {
           <div className="form">
             <div className="form__item">
               <div className="field">
-                <div className="field__title field__titel_password"> New password</div>
+                <div className="field__title"> New Password</div>
                 <div className="icon">
+                  <label className="field__label"></label>
                   <input
                     onInput={(e) => settingsForm.change(e.target.name, e.target.value)}
                     className={`field__input validation ${errors[settingsForm.FIELD_NAME.NEWPASSWORD] ? 'validation--error' : ''}`}
                     name={settingsForm.FIELD_NAME.NEWPASSWORD}
-                    placeholder="New password"
+                    placeholder="New Password"
                     type={showPassword ? 'text' : 'password'}
                   />
 
@@ -455,6 +473,7 @@ const config_two = async () => {
                     className={`field__icon ${showPassword ? 'show' : ''}`}
                   ></span>
                 </div>
+                
               </div>
             </div>
           </div>

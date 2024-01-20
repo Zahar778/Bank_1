@@ -12,6 +12,7 @@ import RecivePage from './container/recive';
 import SettingsPage from './container/settings';
 import ReceiptPage from './container/receipt';
 import SendPage from './container/send';
+import BallPage from './container/ball';
 
 
 function App() {
@@ -58,6 +59,10 @@ function App() {
         <Routes>
         <Route path="/send" element={<SendPage />} />
         </Routes>
+        <Routes>
+        <Route path="/ball" element={<BallPage />} />
+        </Routes>
+        
       </div>
     </Router>
   );

@@ -5,13 +5,6 @@ const { Confirm } = require('../class/confirm');
 const { Session } = require('../class/session')
 
 
-User.create({
-  email: 'user@mail.com',
-  password: "qwe123QWE",
-  role: 1,
-})
-
-
 router.use(express.json());
 
 router.post('/signup', function (req, res) {
@@ -259,6 +252,48 @@ router.post('/settings', async function (req, res) {
   }
 });
 router.post('/settings_password', async function (req, res) {
+  const { email, newPassword, password } = req.body
+
+  console.log(email, newPassword, password)
+
+  if (!email || !password || !newPassword) {
+    return res.status(400).json({
+      message: "Помилка. Обов'язкові поля відсутні",
+    })
+  }
+
+  try {
+    // const email = Confirm.getData(Number(code))
+
+    if (!email) {
+      return res.status(400).json({
+        message: 'EROR!!!',
+      })
+    }
+
+    const user = User.getByEmail(email)
+    
+    if (!user) {
+      return res.status(400).json({
+        message: 'Користувач з таким email не існує',
+      })
+    }
+
+    user.password = newPassword
+
+    console.log(user)
+
+    const session = Session.create(user)
+
+    return res.status(200).json({
+      message: 'Пароль змінено',
+      session,
+    })
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+    })
+  }
 });
 
 

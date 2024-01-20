@@ -15,7 +15,7 @@ export default function Balance() {
   const [status, setStatus] = useState(null);
   const [message, setMessage] = useState('');
   const [data, setData] = useState(null);
-  const [balance, setBalance] = useState(30000);
+  const [balance, setBalance] = useState(0);
 
   const navigate = useNavigate();
 
@@ -52,8 +52,15 @@ export default function Balance() {
   });
 
   const updateBalance = (newItems) => {
-    const sumOfNewItems = newItems.reduce((sum, item) => sum + parseFloat(item.text), 0);
-    setBalance(prevBalance => prevBalance + sumOfNewItems);
+    newItems.forEach((item) => {
+      if (item.username.endsWith('.com')) {
+        // Если username это почта, вычитаем значение text
+        setBalance((prevBalance) => prevBalance - parseFloat(item.text));
+      } else {
+        // В противном случае, добавляем значение text
+        setBalance((prevBalance) => prevBalance + parseFloat(item.text));
+      }
+    });
   };
 
   useEffect(() => {
@@ -64,6 +71,9 @@ export default function Balance() {
 
   const recive = () => {
     navigate('/recive');
+  };
+  const ball = () => {
+    navigate('/ball');
   };
 
   const settings = () => {
@@ -79,16 +89,13 @@ export default function Balance() {
 
   return (
     <div className='balance_body'>
-   
-
-  
     <header className="">
       <div className='header_balance'>
       <div className='header_balance_gradient'>
      <div className='header_icon'>
       <div className='settings' onClick={settings} ></div>
       <div className='header_title'>Main wallet</div>
-      <div className='bell' onClick={"привет"} ></div>
+      <div className='bell' onClick={ball} ></div>
      </div>
      <div className='balance'>$ {balance}</div>
      </div>
@@ -113,13 +120,13 @@ export default function Balance() {
               <Fragment key={item.id}>
                 <form className='replenishment'>
                   <div className='form_display' onClick={() => receipt(item.id)}>
-                    <div className={item.username === 'Coinbase' ? 'logo_form_two' : 'logo_form'}></div>
-                    
+                  <div className={item.username === 'Coinbase' ? 'logo_form_two' : (item.username === 'Stripe' ? 'logo_form' : (item.username.endsWith('.com') ? 'logo_user' : ''))}>
+                    </div>    
                     <div className='date_replenis'>
                       <div className='name_replenishment'>{item.username}</div>
-                      <div className='date'>{item.date.split(' ')[1]} • Receipt </div>
+                      <div className='date'>{item.date.split(' ')[1]} • {item.username.endsWith('.com') ? 'Sending' : 'Receipt'} </div>
                     </div>
-                    <div className='sum'>+{item.text}$</div>
+                    <div className={item.username.endsWith('.com') ? "send" : "sum"}>{item.username.endsWith('.com') ? '-' : '+'}{item.text}$</div>
                   </div>
                 </form>
               </Fragment>

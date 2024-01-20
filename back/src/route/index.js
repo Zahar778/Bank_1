@@ -7,8 +7,8 @@ const auth = require('./auth')
 const { User } = require('../class/user')
 // Підключіть інші файли роутів, якщо є 
 const post = require('./post')
-// Об'єднайте файли роутів за потреби
-
+// Об'єднайте файли роутів за потреби 
+ 
  
 router.use('/', auth)
 router.use('/', post)
